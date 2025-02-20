@@ -5,19 +5,22 @@ struct employee_t{
     float salary;
     char department[50];
 };
-typedef struct employee_t employee;
 
+typedef struct employee_t employee;
 void reademployees(employee emp[],int n);
 void displayemployees(employee emp[],int n);
+void saveemployees(employee emp[],int n);
+void loademployees(employee emp[],int n);
 employee findhighestsalaried(employee emp[],int n);
 
 int main(){
     int employeecount;
     printf("Enter number of employees:");
     scanf("%d",&employeecount);
-    
     employee employees[1000];
     reademployees(employees,employeecount);
+    saveemployees(employees, employeecount);
+    loademployees(employees, employeecount);
     displayemployees(employees,employeecount);
     employee highestsalaried = findhighestsalaried(employees,employeecount);
     printf("Employee with highest salary: %s,%.2f (%s)\n",highestsalaried.name,highestsalaried.salary,highestsalaried.department);
@@ -32,7 +35,6 @@ void reademployees(employee emp[],int n){
 }
 void saveemployees(employee emp[],int n){
     FILE* file = fopen("employees.txt","w");
-    //
     if(file == NULL){
         printf("Error in creating file.\n");
         return;
